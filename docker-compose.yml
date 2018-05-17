@@ -1,0 +1,13 @@
+db:
+  image: mongo:3.6-jessie
+  ports:
+    - "27017:27017"
+  command: "--smallfiles --logpath=/dev/null"
+bot:
+  build: .
+  ports:
+    - "3000:3000"
+  links:
+    - db
+  env_file:
+    - .env
