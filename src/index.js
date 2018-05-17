@@ -22,7 +22,7 @@ controller.setupWebserver(process.env.PORT, function(err,webserver) {
 
 controller.hears('hello','direct_mention,direct_message', function(bot, message) {
 
-  bot.reply(message,'Howdy!');
+  bot.reply(message,'Howdy hooooo!');
 
 });
 

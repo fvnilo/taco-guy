@@ -7,6 +7,8 @@ bot:
   build: .
   ports:
     - "3000:3000"
+  volumes:
+     - .:/tacoguy
   links:
     - db
   env_file:
