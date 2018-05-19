@@ -1,10 +1,9 @@
 const Botkit = require('botkit');
 const path = require('path');
 
-const mongoHost = process.env.DB_PORT_27017_TCP.replace('tcp', 'mongodb');
-const mongoUri = `${mongoHost}/taco_guy`;
+const mongoUri = process.env.MONGO_URL;
 
-const mongoProvider = 
+const mongoProvider =
   require('botkit-storage-mongo')({ mongoUri });
 
 const controller = Botkit.slackbot({
@@ -15,18 +14,18 @@ const controller = Botkit.slackbot({
   scopes: ['bot'],
 });
 
-controller.setupWebserver(process.env.PORT, function(err,webserver) {
-    controller.createWebhookEndpoints(controller.webserver);
-    controller.createOauthEndpoints(controller.webserver);
+controller.setupWebserver(process.env.PORT, function (err, webserver) {
+  controller.createWebhookEndpoints(controller.webserver);
+  controller.createOauthEndpoints(controller.webserver);
 });
 
-controller.hears('hello','direct_mention,direct_message', function(bot, message) {
+controller.hears('hello', 'direct_mention,direct_message', function (bot, message) {
 
-  bot.reply(message,'Howdy hooooo!');
+  bot.reply(message, 'Howdy hooooo!');
 
 });
 
-controller.hears(':taco:','direct_mention,direct_message', function(bot, message) {
+controller.hears(':taco:', 'direct_mention,direct_message', function (bot, message) {
   console.log(message)
-  bot.reply(message,'Howdy!');
+  bot.reply(message, 'Howdy!');
 });

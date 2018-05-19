@@ -1,15 +1,21 @@
-db:
-  image: mongo:3.6-jessie
-  ports:
-    - "27017:27017"
-  command: "--smallfiles --logpath=/dev/null"
-bot:
-  build: .
-  ports:
-    - "3000:3000"
-  volumes:
-     - .:/tacoguy
-  links:
-    - db
-  env_file:
-    - .env
+version: '3.4'
+services:
+  db:
+    image: mongo:3.6-jessie
+    ports:
+      - "27017:27017"
+    command: "--smallfiles --logpath=/dev/null"
+  bot:
+    build: .
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/tacoguy
+    links:
+      - db
+    depends_on:
+      - db
+    env_file:
+      - .env
+    environment:
+      - MONGO_URL=mongodb://db/taco_guy
