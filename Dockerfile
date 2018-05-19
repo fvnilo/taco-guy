@@ -9,7 +9,6 @@ ADD package.json /tacoguy
 WORKDIR /tacoguy
 
 RUN npm install
-
-EXPOSE 3000
+RUN npm install -g nodemon
 
 CMD ["npm", "start"]

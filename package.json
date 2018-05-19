@@ -3,15 +3,9 @@
   "version": "0.0.1",
   "description": "A tacoguy slack bot",
   "main": "src/index.js",
-  "scripts": {
-    "start": "nodemon"
-  },
   "dependencies": {
     "botkit": "^0.6.12",
     "botkit-storage-mongo": "^1.0.6"
-  },
-  "devDependencies": {
-    "nodemon": "^1.17.4"
   },
   "repository": {
     "type": "git",

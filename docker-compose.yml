@@ -7,8 +7,10 @@ services:
     command: "--smallfiles --logpath=/dev/null"
   bot:
     build: .
+    command: nodemon -L --inspect=0.0.0.0:5858
     ports:
       - "3000:3000"
+      - "5858:5858"
     volumes:
       - .:/tacoguy
     links:
