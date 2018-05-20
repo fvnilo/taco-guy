@@ -4,6 +4,8 @@ services:
     image: mongo:3.6-jessie
     ports:
       - "27017:27017"
+    volumes:
+      - ./data:/data/db
     command: "--smallfiles --logpath=/dev/null"
   bot:
     build: .
@@ -12,7 +14,7 @@ services:
       - "3000:3000"
       - "5858:5858"
     volumes:
-      - .:/tacoguy
+      - ./src:/tacoguy/src
     links:
       - db
     depends_on:
