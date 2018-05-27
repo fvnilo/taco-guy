@@ -11,21 +11,29 @@ const controller = Botkit.slackbot({
   clientSecret: process.env.clientSecret,
   studio_token: process.env.studio_token,
   storage: mongoProvider,
-  scopes: ['bot'],
+  scopes: ['bot']
 });
 
-controller.setupWebserver(process.env.PORT, function (err, webserver) {
+controller.setupWebserver(process.env.PORT, (err, webserver) => {
   controller.createWebhookEndpoints(controller.webserver);
   controller.createOauthEndpoints(controller.webserver);
 });
 
-controller.hears('hello', 'direct_mention,direct_message', function (bot, message) {
+controller.hears('hello', 'direct_mention,direct_message', (bot, message) => {
 
-  bot.reply(message, 'Howdy hooooo!');
-
+  bot.reply(message, `Howdy hooooo <@${message.user}> !`);
 });
 
-controller.hears(':taco:', 'direct_mention,direct_message', function (bot, message) {
-  console.log(message)
-  bot.reply(message, 'Howdy!');
+controller.hears(':taco:', 'direct_mention,direct_message', (bot, message) => {
+
+  // Slack user ID format: <MY_USER_ID>
+  const possibleMentions = message.text.match(/\<{1}\@{1}[A-Z0-9]*\>{1}/g);
+
+  if (possibleMentions) {
+
+    bot.reply(message, `Taco for ${possibleMentions}!`);  
+  } else {
+    
+    bot.reply(message, `Taco for nobody...? Please be more generous <@${message.user}>`);  
+  }
 });
